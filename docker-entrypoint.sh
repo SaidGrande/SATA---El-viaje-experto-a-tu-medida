@@ -1,15 +1,10 @@
-# ============================================
-# ARCHIVO 1: docker-entrypoint.sh
-# ============================================
 #!/bin/bash
 set -e
 
-# Obtener el puerto o usar 80 por defecto
 PORT=${PORT:-80}
 
 echo "Configurando Apache para puerto $PORT..."
 
-# Configurar puerto en ports.conf
 cat > /etc/apache2/ports.conf << EOF
 Listen $PORT
 
@@ -22,7 +17,6 @@ Listen $PORT
 </IfModule>
 EOF
 
-# Configurar puerto en el VirtualHost
 cat > /etc/apache2/sites-available/000-default.conf << EOF
 <VirtualHost *:$PORT>
     ServerAdmin webmaster@localhost
@@ -39,18 +33,8 @@ cat > /etc/apache2/sites-available/000-default.conf << EOF
 </VirtualHost>
 EOF
 
-# Crear directorios necesarios si no existen
 mkdir -p /var/www/html/src/temp /var/www/html/src/php
 chmod -R 777 /var/www/html/src/temp /var/www/html/src/php
 
-# Verificar que SWI-Prolog funciona
-echo "Verificando SWI-Prolog..."
-swipl --version || echo "Advertencia: SWI-Prolog no encontrado"
-
-# Verificar que PHP funciona
-echo "Verificando PHP..."
-php -v || echo "Advertencia: PHP no encontrado"
-
 echo "Iniciando Apache en puerto $PORT..."
 apache2ctl -D FOREGROUND
-
