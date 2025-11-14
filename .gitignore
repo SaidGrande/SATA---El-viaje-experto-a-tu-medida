@@ -1,0 +1,6 @@
+src/temp/*
+src/php/hechos_usuario.pl
+src/php/datos_practicos.pl
+src/php/seleccion_destinos.pl
+.DS_Store
+*.log

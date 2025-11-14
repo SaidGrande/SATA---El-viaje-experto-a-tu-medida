@@ -1,8 +1,9 @@
 services:
   - type: web
-    name: sata-web
-    plan: free
+    name: sata-viajes
     env: docker
-    dockerfilePath: ./Dockerfile
-    region: oregon
+    plan: free
     healthCheckPath: /
+    envVars:
+      - key: PORT
+        generateValue: true
