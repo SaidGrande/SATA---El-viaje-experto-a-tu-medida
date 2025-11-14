@@ -1,10 +1,16 @@
+# ============================================
+# ARCHIVO 2: Dockerfile (VERSIÓN MEJORADA)
+# ============================================
 # Usar Ubuntu como base
 FROM ubuntu:22.04
 
 # Evitar prompts interactivos durante instalación
 ENV DEBIAN_FRONTEND=noninteractive
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_LOG_DIR=/var/log/apache2
 
-# Instalar dependencias
+# Instalar dependencias básicas
 RUN apt-get update && apt-get install -y \
     apache2 \
     php \
@@ -12,6 +18,7 @@ RUN apt-get update && apt-get install -y \
     php-cli \
     software-properties-common \
     wget \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalar SWI-Prolog
@@ -38,16 +45,16 @@ RUN chown -R www-data:www-data /var/www/html && \
 # Habilitar exec() en PHP
 RUN sed -i 's/disable_functions = .*/disable_functions = /' /etc/php/8.1/apache2/php.ini
 
-# Configurar Apache para escuchar en el puerto que Render asigna
-RUN sed -i 's/Listen 80/Listen ${PORT:-80}/' /etc/apache2/ports.conf
-RUN sed -i 's/:80/:${PORT:-80}/' /etc/apache2/sites-available/000-default.conf
+# Crear directorio de logs si no existe
+RUN mkdir -p /var/log/apache2 && \
+    chown -R www-data:www-data /var/log/apache2
 
-# Exponer el puerto
-EXPOSE ${PORT:-80}
-
-# Script de inicio personalizado
+# Copiar script de inicio
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
+# Exponer el puerto (Render lo asignará dinámicamente)
+EXPOSE ${PORT:-80}
 
 # Comando de inicio
 CMD ["/usr/local/bin/docker-entrypoint.sh"]

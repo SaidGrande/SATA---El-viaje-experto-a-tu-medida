@@ -1,9 +1,10 @@
+# ============================================
+# ARCHIVO 3: render.yaml
+# ============================================
 services:
   - type: web
     name: sata-viajes
     env: docker
     plan: free
     healthCheckPath: /
-    envVars:
-      - key: PORT
-        generateValue: true
+    autoDeploy: true

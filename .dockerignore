@@ -1,3 +1,6 @@
+# ============================================
+# ARCHIVO 4: .dockerignore
+# ============================================
 .git
 .gitignore
 README.md
@@ -7,3 +10,7 @@ node_modules
 .DS_Store
 src/temp/*
 !src/temp/.gitkeep
+src/php/hechos_usuario.pl
+src/php/datos_practicos.pl
+src/php/seleccion_destinos.pl
+*.log
