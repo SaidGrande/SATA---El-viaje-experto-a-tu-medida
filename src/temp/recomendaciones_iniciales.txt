@@ -1,0 +1,12 @@
+DESTINO: Atenas, Grecia
+DESTINO: Roma, Italia
+DESTINO: Estambul, Turquia
+DESTINO: Patagonia Chilena
+DESTINO: Patagonia Argentina
+DESTINO: Parques Nacionales USA
+DESTINO: Costa Rica
+DESTINO: Cusco, Peru
+DESTINO: Ubud, Bali
+DESTINO: Moab, Utah
+DESTINO: Paris, Francia
+DESTINO: Marrakech, Marruecos

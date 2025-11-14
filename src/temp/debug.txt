@@ -1,0 +1,6 @@
+Comando: swipl -s viajero_experto1.pl -g "determinar_perfil, halt." -t 'halt(1)' 2>&1
+Resultado: Perfil determinado: Cultural - Amigos
+
+Hechos guardados en: C:\xampp\htdocs\Proyecto\SATA\pages\quizz/../../src/php/hechos_usuario.pl
+Directorio prolog: C:\xampp\htdocs\Proyecto\SATA\pages\quizz/../../src/prolog
+Archivo existe: SI

@@ -1,0 +1,594 @@
+ :root {
+            --primary-text: #ffffff;
+            --secondary-text: #cccccc;
+            --background-dark: #1a1a1a;
+            --accent-color: #e0b400; /* Un dorado sutil para acentuar */
+        }
+
+        html {
+            scroll-behavior: smooth; /* HACE QUE EL SCROLL DEL ANCLA SEA SUAVE */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background-color: var(--background-dark);
+            color: var(--primary-text);
+            line-height: 1.6;
+        }
+
+        /* Utilidades */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s ease;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: center; /* Centra la navegación */
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Asegura que los items estén centrados */
+        }
+
+        nav ul li {
+            margin: 0 20px; /* Espaciado uniforme */
+        }
+
+        nav ul li a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-weight: 500; /* Un poco más de peso */
+            font-size: 1em;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-text);
+        }
+
+        /* --- SECCIÓN HERO --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex; 
+            align-items: center;   
+            justify-content: center; 
+            color: var(--primary-text);
+            overflow: hidden;
+            padding-top: 80px; 
+            box-sizing: border-box; 
+        }
+        
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1.5fr 1.2fr; 
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 1800px; 
+            padding: 0 60px; 
+            box-sizing: border-box;
+            gap: 40px; 
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../../images/index/fondo/hermoso-tiro-horizontal-del-sol-naciente-y-altas-montanas-rocosas-bajo-el-cielo-nublado.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7);
+            z-index: -1;
+        }
+        
+        .hero-center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative; 
+            z-index: 2;
+        }
+
+        .hero-logo {
+            margin-bottom: 25px; 
+            height: 150px; 
+            width: auto;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.3em;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-top: 0;
+        }
+
+        .hero-side-text {
+            font-size: 1em; 
+            color: rgba(255, 255, 255, 0.95); 
+            line-height: 1.7;
+            background-color: rgba(0, 0, 0, 0.2); 
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 12px; 
+            padding: 30px; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
+            position: relative; 
+            z-index: 1; 
+        }
+        
+        .hero-side-text p {
+            margin-bottom: 20px;
+        }
+        
+        .hero-side-text p:last-child {
+            margin-bottom: 0; 
+        }
+
+        .hero-left {
+            text-align: right;
+        }
+
+        .hero-right {
+            text-align: left;
+        }
+
+
+        /* --- SECCIÓN QUIZ (FONDO ACTUALIZADO) --- */
+        .quiz-section {
+            padding: 80px 0;
+            text-align: center;
+            position: relative; /* Para el overlay */
+            background-image: url('../../images/index/fondo/turista-tomando-en-el-glaciar-skaftafell-parque-nacional-vatnajokull-en-islandia.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* Efecto parallax */
+        }
+
+        .quiz-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Overlay oscuro */
+            z-index: 1; 
+        }
+        
+        .quiz-section .container {
+            position: relative;
+            z-index: 2; /* Encima del overlay */
+        }
+
+        .quiz-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: var(--primary-text);
+        }
+
+        .quiz-section p.subtitle {
+            font-size: 1.1em;
+            color: var(--secondary-text);
+            margin-bottom: 60px;
+        }
+
+        .quiz-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .quiz-card {
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: left;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .quiz-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+            z-index: -1;
+        }
+        
+        .quiz-card:nth-child(1)::before { background-image: url('../../images/index/pasos/casa-colorida-vieja-riviera-italia.jpg'); }
+        .quiz-card:nth-child(2)::before { background-image: url('../../images/index/pasos/iglesia-en-china.jpg'); }
+        .quiz-card:nth-child(3)::before { 
+            background-image: url('../../images/index/pasos/cancun.jpg');
+        }
+
+
+        .quiz-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+        }
+
+        .quiz-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: var(--primary-text);
+        }
+
+        .quiz-card p {
+            font-size: 0.95em;
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+        }
+
+        .quiz-card .step-label {
+            font-size: 0.85em;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .quiz-card .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: var(--accent-color);
+            color: var(--background-dark);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-card .btn:hover {
+            background-color: #ffd700;
+        }
+
+        /* --- SECCIÓN INSPIRACIÓN (FONDO ACTUALIZADO) --- */
+        .inspiration-section {
+            padding: 80px 0;
+            position: relative; 
+            background-image: url('../../images/index/fondo/hermosa-isla-paradisiaca-con-playa-y-mar.jpg'); 
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+        }
+        
+        .inspiration-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1; 
+        }
+
+        .inspiration-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .inspiration-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: var(--primary-text);
+            text-align: center;
+        }
+
+        .inspiration-section p.subtitle {
+            font-size: 1.1em;
+            color: var(--secondary-text);
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .inspiration-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .inspiration-link-wrapper {
+            text-decoration: none; 
+            color: inherit; 
+            display: block; 
+        }
+
+        .inspiration-card {
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .inspiration-link-wrapper:hover .inspiration-card {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .inspiration-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6);
+            z-index: -1;
+        }
+        
+        .inspiration-grid .inspiration-link-wrapper:nth-child(1) .inspiration-card::before { 
+            background-image: url('../../images/index/inspiracion/big-ben-y-la-casa-del-parlamento-por-la-noche-londres-reino-unido.jpg'); 
+        }
+        .inspiration-grid .inspiration-link-wrapper:nth-child(2) .inspiration-card::before { 
+            background-image: url('../../images/index/inspiracion/plaza-de-cibeles-en-la-oscuridad-madrid.jpg'); 
+        }
+
+        .inspiration-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 30px;
+            color: var(--primary-text);
+        }
+
+        .inspiration-card .category {
+            font-size: 0.8em;
+            color: var(--secondary-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .inspiration-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .inspiration-card p {
+            font-size: 0.95em;
+            color: var(--secondary-text);
+            line-height: 1.7;
+        }
+
+        
+        /* --- SECCIÓN VIAJERO (FONDO ACTUALIZADO) --- */
+        .viajero-section {
+            padding: 120px 0 80px 0;
+            text-align: center;
+            position: relative; /* Para el overlay */
+            /* --- NUEVA IMAGEN DE FONDO --- */
+            background-image: url('../../images/index/fondo/hermoso-paisaje-de-un-rio-rodeado-de-vegetacion-en-un-bosque.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* Efecto parallax */
+        }
+
+        /* --- OVERLAY PARA EL FONDO DE VIAJERO --- */
+        .viajero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Overlay oscuro */
+            z-index: 1; 
+        }
+
+        /* --- CONTENEDOR DE VIAJERO (ENCIMA DEL OVERLAY) --- */
+        .viajero-section .container {
+            position: relative;
+            z-index: 2; /* Encima del overlay */
+        }
+
+
+        .viajero-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            margin-bottom: 15px;
+            color: var(--primary-text);
+        }
+
+        .viajero-section p.subtitle {
+            font-size: 1.1em;
+            color: var(--secondary-text);
+            margin-bottom: 60px;
+        }
+
+        .viajero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .viajero-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            /* --- ESTILO "FROSTED GLASS" AÑADIDO --- */
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+
+        .viajero-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .viajero-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* --- AÑADIDO: HACE QUE LA IMAGEN INTERNA TAMBIÉN SEA REDONDEADA --- */
+            border-radius: 12px; /* Opcional, pero se ve bien con el 'frosted glass' */
+        }
+
+
+        /* Footer */
+        footer {
+            position: relative;
+            padding: 80px 0 40px;
+            background-color: var(--background-dark);
+            color: var(--secondary-text);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('../../images/index/inspiracion/plaza-de-cibeles-en-la-oscuridad-madrid.jpg');
+            background-size: cover;
+            background-position: bottom;
+            filter: brightness(0.4);
+            z-index: 1;
+        }
+
+        footer .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        footer p {
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+
+        footer .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        footer .footer-links li a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: color 0.3s ease;
+        }
+
+        footer .footer-links li a:hover {
+            color: var(--primary-text);
+        }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 900px) {
+            .hero-side-text {
+                display: none;
+            }
+            .hero-container {
+                grid-template-columns: 1fr;
+                padding: 0 20px;
+                gap: 0;
+            }
+            .hero-content h1 { font-size: 3.5em; }
+            .hero-content p { font-size: 1.1em; }
+            
+            .quiz-cards, .inspiration-grid, .viajero-grid { 
+                grid-template-columns: 1fr; 
+            }
+            
+            .quiz-section h2, .inspiration-section h2, .viajero-section h2 { 
+                font-size: 2.5em; 
+            }
+            .inspiration-card h3 { font-size: 1.7em; }
+        }
+        
+        @media (max-width: 500px) {
+            .hero-content h1 { font-size: 2.5em; }
+            .hero-content p { font-size: 1em; }
+            .hero-logo { height: 100px; margin-bottom: 20px; }
+            
+            nav ul li { margin: 0 10px; }
+            nav ul li a { font-size: 0.9em; }
+
+            .quiz-section h2, .inspiration-section h2, .viajero-section h2 { 
+                font-size: 2em; 
+            }
+            .quiz-card-content, .inspiration-card-content { padding: 20px; }
+            .footer-links { flex-direction: column; gap: 10px; }
+        }

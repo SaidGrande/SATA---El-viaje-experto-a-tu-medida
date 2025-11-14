@@ -1,0 +1,519 @@
+/* ===============================
+   SATA AVENTURAS - ABOUT US PAGE
+   Autor: Said Omar Hernández Grande
+   Archivo: aboutus.css
+   =============================== */
+
+/* ====== RESET ====== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ====== BASE ====== */
+body {
+  font-family: 'Arial', sans-serif;
+  background: #000;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Header */
+header {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+header .container {
+  display: flex;
+  justify-content: center;
+  /* Centra la navegación */
+  align-items: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  /* Asegura que los items estén centrados */
+}
+
+nav ul li {
+  margin: 0 20px;
+  /* Espaciado uniforme */
+}
+
+nav ul li a {
+  color: var(--secondary-text);
+  text-decoration: none;
+  font-weight: 500;
+  /* Un poco más de peso */
+  font-size: 1em;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: var(--primary-text);
+}
+
+/* ====== HERO SECTION ====== */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: url('../images/aboutus/background/leopard.jpg') center center / 180% no-repeat;
+  animation: leopardMove 18s ease-in-out infinite alternate;
+}
+
+@keyframes leopardMove {
+  0% {
+    background-position: center 35%;
+    transform: scale(1);
+  }
+
+  50% {
+    background-position: center 45%;
+    transform: scale(1.05);
+  }
+
+  100% {
+    background-position: center 40%;
+    transform: scale(1);
+  }
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp 1.5s forwards 0.5s;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.hero h1 {
+  font-size: 5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #fff, #8fb5e8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.55);
+}
+
+.hero .subtitle {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: #8fb5e8;
+  margin-bottom: 2rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: #e0e0e0;
+  animation: fadeIn 1.5s forwards 1.2s;
+  text-align: center;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ====== TEAM SECTION ====== */
+.team-section {
+  position: relative;
+  padding: 6rem 2rem;
+  overflow: hidden;
+  background: #000;
+}
+
+.team-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../images/aboutus/background/medusas.jpg') center/cover no-repeat;
+  filter: brightness(1.3) saturate(1.3) blur(1px);
+  animation: floatBackground 50s linear infinite alternate;
+  opacity: 0.35;
+  z-index: 0;
+}
+
+.team-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 1));
+  z-index: 1;
+}
+
+@keyframes floatBackground {
+  0% {
+    background-position: center top;
+  }
+
+  50% {
+    background-position: center bottom;
+  }
+
+  100% {
+    background-position: center top;
+  }
+}
+
+.team-title {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 4rem;
+  text-shadow: 0 0 20px rgba(143, 181, 232, 0.8);
+}
+
+.team-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ====== MEMBER CARDS ====== */
+.member-card {
+  position: relative;
+  width: 320px;
+  height: 450px;
+  perspective: 1000px;
+}
+
+.member-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.member-card:hover .member-inner {
+  transform: rotateY(180deg);
+}
+
+.member-front,
+.member-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  background: rgba(10, 10, 30, 0.85);
+  box-shadow: 0 0 25px rgba(107, 60, 186, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.member-back {
+  transform: rotateY(180deg);
+  cursor: pointer;
+}
+
+.member-back a,
+.member-back {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ====== MEMBER IMAGES ====== */
+.member-image {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
+  overflow: visible;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Brillo amarillo (SAID) */
+.member-image.said {
+  box-shadow: 0 0 35px rgba(255, 255, 102, 1);
+}
+
+/* Brillo rosa (TANIA) */
+.member-image.tania {
+  box-shadow: 0 0 25px rgba(255, 102, 204, 0.8);
+}
+
+.member-card:hover .member-image.tania {
+  box-shadow: 0 0 40px rgba(255, 102, 204, 1);
+}
+
+.member-card:hover .member-image.said {
+  transform: scale(1.05);
+}
+
+.member-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+
+/* ====== MEMBER TEXT ====== */
+.member-name {
+  font-size: 1.6rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.member-name.said {
+  color: #ffea00;
+  text-shadow: 0 0 20px rgba(255, 234, 0, 0.9);
+  font-family: "Permanent Marker", cursive;
+  letter-spacing: 2px;
+}
+
+.member-name.tania {
+  color: #ff66cc;
+  text-shadow: 0 0 20px rgba(255, 102, 204, 0.8);
+}
+
+.member-role {
+  color: #8fb5e8;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.member-bio {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ddd;
+  text-align: center;
+  max-width: 260px;
+}
+
+/* ====== STATS SECTION ====== */
+.stats-section {
+  padding: 4rem 2rem;
+  background: #000;
+}
+
+.stats-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(107, 60, 186, 0.2), rgba(143, 181, 232, 0.1));
+  border-radius: 20px;
+  border: 2px solid rgba(107, 60, 186, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 40px rgba(107, 60, 186, 0.4);
+}
+
+.stat-number {
+  font-size: 4rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ff66cc, #8fb5e8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #8fb5e8;
+}
+
+
+/* Footer */
+footer {
+  position: relative;
+  padding: 80px 0 40px;
+  background-color: var(--background-dark);
+  color: var(--secondary-text);
+  text-align: center;
+  overflow: hidden;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../plaza-de-cibeles-en-la-oscuridad-madrid.jpg');
+  background-size: cover;
+  background-position: bottom;
+  filter: brightness(0.4);
+  z-index: 1;
+}
+
+footer .container1 {
+  position: relative;
+  z-index: 2;
+}
+
+footer p {
+  font-size: 0.9em;
+  margin-bottom: 20px;
+}
+
+footer .footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+footer .footer-links li a {
+  color: var(--secondary-text);
+  text-decoration: none;
+  font-size: 0.9em;
+  transition: color 0.3s ease;
+}
+
+footer .footer-links li a:hover {
+  color: var(--primary-text);
+}
+
+/* --- MEDIA QUERIES --- */
+@media (max-width: 900px) {
+  .hero-side-text {
+    display: none;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+    gap: 0;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5em;
+  }
+
+  .hero-content p {
+    font-size: 1.1em;
+  }
+
+  .quiz-cards,
+  .inspiration-grid,
+  .viajero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .quiz-section h2,
+  .inspiration-section h2,
+  .viajero-section h2 {
+    font-size: 2.5em;
+  }
+
+  .inspiration-card h3 {
+    font-size: 1.7em;
+  }
+}
+
+@media (max-width: 500px) {
+  .hero-content h1 {
+    font-size: 2.5em;
+  }
+
+  .hero-content p {
+    font-size: 1em;
+  }
+
+  .hero-logo {
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  nav ul li {
+    margin: 0 10px;
+  }
+
+  nav ul li a {
+    font-size: 0.9em;
+  }
+
+  .quiz-section h2,
+  .inspiration-section h2,
+  .viajero-section h2 {
+    font-size: 2em;
+  }
+
+  .quiz-card-content,
+  .inspiration-card-content {
+    padding: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
