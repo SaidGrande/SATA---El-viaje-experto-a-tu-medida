@@ -79,6 +79,17 @@ Desarrollar un sistema asesor inteligente capaz de generar recomendaciones de vi
    git clone https://github.com/usuario/SATA.git
    cd SATA
 
+2. Asegurar un entorno con PHP y Prolog instalados.
+
+Ejecutar el servidor local:
+
+``` php -S localhost:8000 ```
+
+
+Acceder en el navegador:
+
+``` http://localhost:8000/pages/index.php ```
+
 ## 📜 Licencia
 
 Este proyecto se desarrolla con fines académicos para la materia Hackatón del Centro Universitario de Ciencias Exactas e Ingenierías (CUCEI) de la Universidad de Guadalajara.
