@@ -2,9 +2,9 @@
 % Autor: Sistema SATA
 % Fecha: 2025
 
-% Cargar archivos de datos del usuario (si existen)
-:- catch(consult('hechos_usuario.pl'), _, true).
-:- catch(consult('datos_practicos.pl'), _, true).
+% Cargar archivos de datos del usuario (con rutas corregidas)
+:- catch(consult('../php/hechos_usuario.pl'), _, true).
+:- catch(consult('../php/datos_practicos.pl'), _, true).
 
 % ================================
 % BASE DE CONOCIMIENTO - DESTINOS
@@ -168,15 +168,34 @@ determinar_tipo(natural) :-
 determinar_tipo(mixto).
 
 % ================================
+% VALORES POR DEFECTO SI NO HAY DATOS
+% ================================
+
+% Valores por defecto para presupuesto
+presupuesto_default(moderado).
+get_presupuesto(P) :- presupuesto(P), !.
+get_presupuesto(P) :- presupuesto_default(P).
+
+% Valores por defecto para temporada
+temporada_default(verano).
+get_temporada(T) :- temporada(T), !.
+get_temporada(T) :- temporada_default(T).
+
+% Valores por defecto para experiencia
+experiencia_default(aventura).
+get_experiencia(E) :- experiencia(E), !.
+get_experiencia(E) :- experiencia_default(E).
+
+% ================================
 % COMPATIBILIDAD Y PUNTUACIÓN
 % ================================
 
 compatibilidad_destino(Nombre, Puntos) :-
     destino(Nombre, TipoD, PresupuestoD, TemporadaD, ExperienciaD, _, _),
     determinar_tipo(TipoU),
-    presupuesto(PresupuestoU),
-    temporada(TemporadaU),
-    experiencia(ExperienciaU),
+    get_presupuesto(PresupuestoU),
+    get_temporada(TemporadaU),
+    get_experiencia(ExperienciaU),
     calcular_puntos(TipoD, TipoU, PresupuestoD, PresupuestoU, TemporadaD, TemporadaU, ExperienciaD, ExperienciaU, Puntos).
 
 calcular_puntos(TipoD, TipoU, PresupD, PresupU, TempD, TempU, ExpD, ExpU, Total) :-
@@ -195,9 +214,10 @@ generar_recomendaciones_iniciales :-
     msort(Lista, ListaOrdenada),
     reverse(ListaOrdenada, ListaDesc),
     tomar_n(12, ListaDesc, Mejores),
-    open('recomendaciones_iniciales.txt', write, Stream),
+    open('../temp/recomendaciones_iniciales.txt', write, Stream),
     escribir_lista_inicial(Stream, Mejores),
-    close(Stream).
+    close(Stream),
+    format('Recomendaciones iniciales generadas exitosamente~n', []).
 
 tomar_n(0, _, []) :- !.
 tomar_n(_, [], []) :- !.
@@ -216,11 +236,12 @@ escribir_lista_inicial(Stream, [[_, Nombre]|T]) :-
 % ================================
 
 generar_recomendaciones_finales :-
-    consult('seleccion_destinos.pl'),
+    catch(consult('../php/seleccion_destinos.pl'), _, fail),
     findall(Tipo, (destino_favorito(N), destino(N, Tipo, _, _, _, _, _)), Tipos),
     findall(Pres, (destino_favorito(N), destino(N, _, Pres, _, _, _, _)), Presupuestos),
     findall(Temp, (destino_favorito(N), destino(N, _, _, Temp, _, _, _)), Temporadas),
     findall(Exp, (destino_favorito(N), destino(N, _, _, _, Exp, _, _)), Experiencias),
+    
     mas_comun(Tipos, TipoC),
     mas_comun(Presupuestos, PresupuestoC),
     mas_comun(Temporadas, TemporadaC),
@@ -241,11 +262,12 @@ generar_recomendaciones_finales :-
     tomar_n(3, ListaDesc, Top3),
     
     % Guardar TOP 3
-    open('recomendaciones_finales.txt', write, Stream),
+    open('../temp/recomendaciones_finales.txt', write, Stream),
     format(Stream, 'TOP 3 DESTINOS RECOMENDADOS~n', []),
     format(Stream, '===========================~n~n', []),
-    escribir_top3(Stream, Top3, TipoC, ExperienciaC),
-    close(Stream).
+    escribir_top3(Stream, Top3, TipoC, ExperienciaC, 1),
+    close(Stream),
+    format('Recomendaciones finales generadas exitosamente~n', []).
 
 % Calcular similitud entre destino y patrón del usuario
 calcular_similitud(TipoD, PresupD, TempD, ExpD, TipoU, PresupU, TempU, ExpU, Total) :-
@@ -255,27 +277,18 @@ calcular_similitud(TipoD, PresupD, TempD, ExpD, TipoU, PresupU, TempU, ExpU, Tot
     (ExpD = ExpU -> PE = 5 ; PE = 0),
     Total is PT + PP + PTe + PE.
 
-% Escribir TOP 3
-escribir_top3(_, [], _, _).
-escribir_top3(Stream, [[Puntos, Nom, Desc, Act]|T], Tipo, Exp) :-
-    length(T, Restantes),
-    Posicion is 3 - Restantes,
-    format(Stream, '~n*** POSICION #~w ***~n', [Posicion]),
+% Escribir TOP 3 con posición correcta
+escribir_top3(_, [], _, _, _).
+escribir_top3(Stream, [[Puntos, Nom, Desc, Act]|T], Tipo, Exp, Pos) :-
+    format(Stream, '~n*** POSICION #~w ***~n', [Pos]),
     format(Stream, 'DESTINO: ~w~n', [Nom]),
     format(Stream, 'PUNTUACION: ~w puntos de compatibilidad~n', [Puntos]),
     format(Stream, 'DESCRIPCION: ~w~n', [Desc]),
     format(Stream, 'RAZON: Este destino coincide perfectamente con tu perfil ~w y tu preferencia por experiencias tipo ~w~n', [Tipo, Exp]),
     format(Stream, 'ACTIVIDADES: ~w~n', [Act]),
     format(Stream, '~n', []),
-    escribir_top3(Stream, T, Tipo, Exp).
+    PosNext is Pos + 1,
+    escribir_top3(Stream, T, Tipo, Exp, PosNext).
 
 mas_comun([H|_], H) :- !.
 mas_comun([], mixto).
-
-escribir_lista_final(_, [], _, _).
-escribir_lista_final(Stream, [[Nom, Desc, Act]|T], Tipo, Exp) :-
-    format(Stream, 'DESTINO: ~w~n', [Nom]),
-    format(Stream, 'DESCRIPCION: ~w~n', [Desc]),
-    format(Stream, 'RAZON: Coincide con tu perfil ~w y preferencia ~w~n', [Tipo, Exp]),
-    format(Stream, 'ACTIVIDADES: ~w~n~n', [Act]),
-    escribir_lista_final(Stream, T, Tipo, Exp).
